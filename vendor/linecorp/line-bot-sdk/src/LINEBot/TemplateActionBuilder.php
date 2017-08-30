@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2016 LINE Corporation
  *
@@ -14,12 +15,20 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-use LINE\LINEBot\EchoBot\Dependency;
-use LINE\LINEBot\EchoBot\Route;
-use LINE\LINEBot\EchoBot\Setting;
-require_once __DIR__ . '/../vendor/autoload.php';
-$setting = Setting::getSetting();
-$app = new Slim\App($setting);
-(new Dependency())->register($app);
-(new Route())->register($app);
-$app->run();
+
+namespace LINE\LINEBot;
+
+/**
+ * The interface that has a responsibility to build template action.
+ *
+ * @package LINE\LINEBot
+ */
+interface TemplateActionBuilder
+{
+    /**
+     * Builds template action structure.
+     *
+     * @return array Built template action structure.
+     */
+    public function buildTemplateAction();
+}

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2016 LINE Corporation
  *
@@ -14,12 +15,19 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-use LINE\LINEBot\EchoBot\Dependency;
-use LINE\LINEBot\EchoBot\Route;
-use LINE\LINEBot\EchoBot\Setting;
-require_once __DIR__ . '/../vendor/autoload.php';
-$setting = Setting::getSetting();
-$app = new Slim\App($setting);
-(new Dependency())->register($app);
-(new Route())->register($app);
-$app->run();
+
+namespace LINE\LINEBot\KitchenSink\EventHandler\MessageHandler\Util;
+
+class UrlBuilder
+{
+    public static function buildUrl(\Slim\Http\Request $req, array $paths)
+    {
+        // NOTE: You should configure $baseUri according to your environment
+        // Perhaps, it is prefer to use $_SERVER['HTTP_HOST'], $_SERVER['HTTP_X_FORWARDED_HOST'] or etc
+        $baseUri = $req->getUri()->getBaseUrl();
+        foreach ($paths as $path) {
+            $baseUri .= '/' . urlencode($path);
+        }
+        return $baseUri;
+    }
+}

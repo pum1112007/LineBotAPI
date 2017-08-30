@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2016 LINE Corporation
  *
@@ -14,12 +15,12 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-use LINE\LINEBot\EchoBot\Dependency;
-use LINE\LINEBot\EchoBot\Route;
-use LINE\LINEBot\EchoBot\Setting;
-require_once __DIR__ . '/../vendor/autoload.php';
-$setting = Setting::getSetting();
-$app = new Slim\App($setting);
-(new Dependency())->register($app);
-(new Route())->register($app);
-$app->run();
+
+namespace LINE\LINEBot\Constant;
+
+class ActionType
+{
+    const MESSAGE = 'message';
+    const POSTBACK = 'postback';
+    const URI = 'uri';
+}
